@@ -18,19 +18,19 @@ A custom MCP server.
 
 ## Usage
 
-Install the dependencies:
+1. Install the dependencies:
 
 ```shell
 npm install
 ```
 
-Build the project:
+2. Build the project:
 
 ```shell
 npm run build
 ```
 
-Consume in your Claude desktop configuration. This server requires an `environment` argument to be passed in, to determine what repos should be looked for within the `list_repo_locations` argument:
+3. Consume the server your Claude desktop configuration. This server requires an `environment` argument to be passed in, to determine what repos should be looked for within the `list_repo_locations` argument:
 
 ```json
 // ...other MCP servers...
