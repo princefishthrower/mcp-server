@@ -1,90 +1,124 @@
-// for codevideo
-// const keywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [
-//     {
-//         keywords: ["codevideo.io", "CodeVideo homepage"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo.io"
-//     },
-//     {
-//         keywords: ["studio.codevideo.io", "Studio", "CodeVideo Studio"],
-//         repoPath: "/Users/chris/enterprise/codevideo/studio.codevideo.io"
-//     },
-//     // types
-//     {
-//         keywords: ["Types", "CodeVideo Types"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-types"
-//     },
-//     // exporters
-//     {
-//         keywords: ["exporters", "CodeVideo Exporters"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-exporters"
-//     },
-//     // mcp server itself :)
-//     {
-//         keywords: ["codevideo mcp", "MCP"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-mcp"
-//     },
-//     // react IDE (GUI layer)
-//     {
-//         keywords: ["React IDE", "CodeVideo React IDE"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-ide-react"
-//     },
-//     // virtual IDE
-//     {
-//         keywords: ["virtual IDE", "CodeVideo Virtual IDE"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-virtual-ide"
-//     },
-//     // virtual file explorer
-//     {
-//         keywords: ["virtual file explorer", "CodeVideo Virtual File Explorer"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-virtual-file-explorer"
-//     },
-//     // virtual terminal
-//     {
-//         keywords: ["virtual terminal", "CodeVideo Virtual Terminal"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-virtual-terminal"
-//     },
-//     // virtual mouse
-//     {
-//         keywords: ["virtual mouse", "CodeVideo Virtual Mouse"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-virtual-mouse"
-//     },
-//     // virtual author
-//     {
-//         keywords: ["virtual author", "CodeVideo Virtual Author"],
-//         repoPath: "/Users/chris/enterprise/codevideo/codevideo-virtual-author"
-//     },
-// ]
-
 import { levenshteinDistance } from "../utils/levenshteinDistance.js";
 
-// for compremium
-const keywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [
+// for codevideo
+const codevideoRootDir = "/Users/chris/enterprise/codevideo";
+const codevideoKeywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [
+    // homepage
+    {
+        keywords: ["codevideo.io", "CodeVideo homepage"],
+        repoPath: `${codevideoRootDir}/codevideo.io`
+    },
+    // studio
+    {
+        keywords: ["studio.codevideo.io", "Studio", "CodeVideo Studio"],
+        repoPath: `${codevideoRootDir}/studio.codevideo.io`
+    },
+    // types
+    {
+        keywords: ["Types", "CodeVideo Types"],
+        repoPath: `${codevideoRootDir}/codevideo-types`
+    },
+    // adapters
+    {
+        keywords: ["adapters", "CodeVideo Adapters"],
+        repoPath: `${codevideoRootDir}/codevideo-adapters`
+    },
+    // projections
+    {
+        keywords: ["projections", "CodeVideo Projections"],
+        repoPath: `${codevideoRootDir}/codevideo-projections`
+    },
+    // GUI
+    {
+        keywords: ["React IDE", "CodeVideo React IDE"],
+        repoPath: `${codevideoRootDir}/codevideo-ide-react`
+    },
+    // virtual IDE
+    {
+        keywords: ["virtual IDE", "CodeVideo Virtual IDE"],
+        repoPath: `${codevideoRootDir}/codevideo-virtual-ide`
+    },
+    // virtual file explorer
+    {
+        keywords: ["virtual file explorer", "CodeVideo Virtual File Explorer"],
+        repoPath: `${codevideoRootDir}/codevideo-virtual-file-explorer`
+    },
+    // virtual terminal
+    {
+        keywords: ["virtual terminal", "CodeVideo Virtual Terminal"],
+        repoPath: `${codevideoRootDir}/codevideo-virtual-terminal`
+    },
+    // virtual mouse
+    {
+        keywords: ["virtual mouse", "CodeVideo Virtual Mouse"],
+        repoPath: `${codevideoRootDir}/codevideo-virtual-mouse`
+    },
+    // virtual author
+    {
+        keywords: ["virtual author", "CodeVideo Virtual Author"],
+        repoPath: `${codevideoRootDir}/codevideo-virtual-author`
+    },
+]
+
+
+// for compremium / docsascode
+const compremiumRootDir = "/Users/chris/enterprise/compremium";
+const solveKeywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [
     {
         keywords: ["CPM1", "CPMX1"],
-        repoPath: "/Users/chris/solve/compremium/cpm1-software"
+        repoPath: `${compremiumRootDir}cpm1-software`
     },
     {
         keywords: ["CPM2", "CPMX2"],
-        repoPath: "/Users/chris/solve/compremium/cpmx2-software"
+        repoPath: `${compremiumRootDir}cpmx2-software`
     },
     {
         keywords: ["Common", "CPMXCommon", "CPMX Common"],
-        repoPath: "/Users/chris/solve/compremium/cpmx-common"
+        repoPath: `${compremiumRootDir}cpmx-common`
     },
     {
         keywords: ["Connectivity", "CPMXConnectivity", "Cockpit"],
-        repoPath: "/Users/chris/solve/compremium/cpm-connectivity"
+        repoPath: `${compremiumRootDir}cpm-connectivity`
     },
     {
         keywords: ["CI Components", "CI Components Library", "CI"],
-        repoPath: "/Users/chris/solve/compremium/ci-components"
+        repoPath: `${compremiumRootDir}ci-components`
     },
+    {
+        keywords: ["docsascode", "Docs as Code", "docsascode-generator"],
+        repoPath: "/Users/chris/solve/docsascode-generator"
+    }
+]
+
+// for fullstackcraft
+const fullstackcraftKeywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [
+    {
+        keywords: ["fullstackcraft", "Fullstack Craft website"],
+        repoPath: "/Users/chris/enterprise/fullstackcraft.com"
+    },
+    {
+        keywords: ["Chris Blog", "Chris Full Stack Blog"],
+        repoPath: "/Users/chris/enterprise/chrisfrew.in"
+    },
+    {
+        keywords: ["MCP server", "mcpserver"],
+        repoPath: "/Users/chris/playground/mcp-server"
+    }
 ]
 
 // returns the relevant repo path based on the keyword provided
 // if no matching keyword is found, it gives context of the nearest matches, i.e. "did you mean...?"
-export const listRepoLocations = async (keyword: string) => {
+export const listRepoLocations = async (environment: string, keyword: string) => {
     const keywordLower = keyword.toLowerCase();
+    let keywordRepoMap: Array<{ keywords: string[], repoPath: string}> = [];
+    
+    if (environment === "codevideo") {
+        keywordRepoMap = codevideoKeywordRepoMap;
+    } else if (environment === "solve") {
+        keywordRepoMap = solveKeywordRepoMap;
+    } else if (environment === "fullstackcraft") {
+        keywordRepoMap = fullstackcraftKeywordRepoMap;
+    }
     
     // First try exact or substring matches
     const exactMatches = keywordRepoMap.filter(repo => 

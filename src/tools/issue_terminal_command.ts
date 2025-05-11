@@ -1,13 +1,19 @@
 import { exec } from 'child_process';
 import { promisify } from 'util';
 
+// toggle this to activate read-only mode
+const READ_ONLY_MODE = true;
+
 // List of allowed commands (read-only operations)
-// const ALLOWED_COMMANDS = [
-//     'ls', 'dir', 'cat', 'head', 'tail', 'grep',
-//     'pwd', 'echo', 'date', 'whoami', 'df', 'du', 'ps',
-//     'wc', 'which', 'whereis', 'type', 'file', 'uname',
-//     'history', 'man', 'env', 'printenv', 'grimoire', '/Users/chris/go/bin/grimoire'
-// ];
+const ALLOWED_COMMANDS = [
+    'ls', 'dir', 'cat', 'head', 'tail', 'grep',
+    'pwd', 'echo', 'date', 'whoami', 'df', 'du', 'ps',
+    'wc', 'which', 'whereis', 'type', 'file', 'uname',
+    'history', 'man', 'env', 'printenv', 'grimoire', '/Users/chris/go/bin/grimoire',
+    'git',
+    'cd',
+    'for'
+];
 
 export const issueTerminalCommand = async (command: string) => {
     // Extract the base command (first word before any space or special character)
@@ -24,15 +30,15 @@ export const issueTerminalCommand = async (command: string) => {
     }
     
     // Check if the base command is in the allowed list
-    // if (!ALLOWED_COMMANDS.includes(baseCommand)) {
-    //     return {
-    //         content: [{
-    //             type: "text",
-    //             text: `Error: Command '${baseCommand}' is not allowed for security reasons. Only read-only commands like ${ALLOWED_COMMANDS.slice(0, 5).join(', ')}, etc. are permitted.`
-    //         }],
-    //         isError: true
-    //     };
-    // }
+    if (READ_ONLY_MODE && !ALLOWED_COMMANDS.includes(baseCommand)) {
+        return {
+            content: [{
+                type: "text",
+                text: `Error: Command '${baseCommand}' is not allowed for security reasons. The following commands are available: ${ALLOWED_COMMANDS.join(', ')}, etc. are permitted.`
+            }],
+            isError: true
+        };
+    }
 
     try {
         const execPromise = promisify(exec);

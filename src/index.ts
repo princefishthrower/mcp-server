@@ -11,6 +11,14 @@ import { listRepoLocations } from "./tools/list_repo_locations.js";
 import { generateSolvePrompt } from "./tools/generate_solve_prompt.js";
 import { runTestForRepo } from "./tools/run_test_for_repo.js";
 
+const args = process.argv.slice(2);
+const environmentFlag = args.find(arg => arg.startsWith('--environment=')) || 
+                        args.find(arg => arg === '--environment' && args[args.indexOf(arg) + 1]) ?
+                        args[args.indexOf('--environment') + 1] :
+                        args.find(arg => arg.startsWith('--environment='))?.split('=')[1] || 'default';
+
+const environment = environmentFlag;
+
 const server = new Server({
     name: "mcp-server",
     version: "1.0.0",
@@ -87,7 +95,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     else if (request.params.name === "list_repo_locations") {
         const args = request.params.arguments as { keyword: string };
         const { keyword } = args;
-        return { toolResult: await listRepoLocations(keyword) };
+        return { toolResult: await listRepoLocations(environment, keyword) };
     }
     else if (request.params.name === 'run_test_for_repo') {
         const args = request.params.arguments as { keyword: string };
